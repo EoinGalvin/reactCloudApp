@@ -1,18 +1,15 @@
 import { useState, useEffect} from "react";
 import LearningMaterials from "./LearningMaterial";
 
-function SearchQuery() {
+function SearchQuery(username) {
 
     const [query, setQuery] = useState(undefined);
 
     useEffect(() => {
-        console.log(query);
-        
     });
 
     const handleSearch = (event) =>{
         event.preventDefault();
-        console.log(event.target[0].value)
         setQuery(event.target[0].value)
     }
 
@@ -26,7 +23,7 @@ function SearchQuery() {
             <input type="submit" value="Submit" />
         </form>
         {
-            query && <LearningMaterials query = {query}/>
+            query && <LearningMaterials query = {query} username = {username.username}/>
         }
         </div>
     )

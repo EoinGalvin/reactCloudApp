@@ -16,7 +16,7 @@ function App() {
             <h1>Hello {user.username}</h1>
             <button onClick={signOut}>Sign out</button>
             <Title></Title>
-            <SearchQuery></SearchQuery>
+            <SearchQuery username = {user.username}></SearchQuery>
           </main>
         )}
       </Authenticator>
