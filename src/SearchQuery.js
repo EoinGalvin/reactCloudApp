@@ -31,7 +31,7 @@ function SearchQuery(username) {
 
 
     function getPreviousRequests() {
-        Axios.post(API_URL_PREVIOUS_REQS, { userId: '3ca9a222-febc-423d-96ba-c2b18bc2e2b7' }).then(res => {
+        Axios.post(API_URL_PREVIOUS_REQS, { userId: username.username }).then(res => {
             setPreviousData(res.data)
         })
     }
