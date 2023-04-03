@@ -1,11 +1,11 @@
-import YoutubeEmbed from "./YoutubeEmbed";
+import Youtube from 'react-youtube';
 import Description from "./Description";
 import { useState, useEffect } from "react";
 import Axios from 'axios';
-const API_URL_YOUTUBE = "https://1vqfhabk0j.execute-api.us-east-1.amazonaws.com/default/lambdapythoneoin1";
-const API_URL_GPT3 = "https://1vqfhabk0j.execute-api.us-east-1.amazonaws.com/default/openAIgpt3_5_Turbo";
-const API_URL_DynamoDB = "https://1vqfhabk0j.execute-api.us-east-1.amazonaws.com/default/dynamoLearningInfo";
-const API_URL_LOOKUP = "https://1vqfhabk0j.execute-api.us-east-1.amazonaws.com/default/linkCognitoToLearnings";
+
+const API_URL_YOUTUBE = "https://52qgbt9ol7.execute-api.us-east-1.amazonaws.com/default/getYoutubeResponse";
+const API_URL_GPT3 = "https://52qgbt9ol7.execute-api.us-east-1.amazonaws.com/default/getGPTdata";
+const API_URL_DynamoDB = "https://52qgbt9ol7.execute-api.us-east-1.amazonaws.com/default/addLearningsToDynamo";
 
 function LearningMaterials(props) {
     const [videoId, setVideoId] = useState(undefined);
@@ -25,6 +25,7 @@ function LearningMaterials(props) {
 
     useEffect(() => {
         if(typeof videoId !== "undefined" && typeof description !== "undefined"){
+            setIsLoading(false)
             let videoUrl = "https://www.youtube.com/watch?v=" + videoId;
             storeLearningData(videoUrl);
         }    
@@ -44,18 +45,10 @@ function LearningMaterials(props) {
     }
 
     function storeLearningData(videoUrl){
-        Axios.post(API_URL_DynamoDB, {Description: description, YoutubeURL: videoUrl, userId: props.username},{headers: {'x-api-key': 'qeg9dL1EZg8w7NgUrhs623oLpbuI0nzI5jL5YETC'}}).then(res => {
+        Axios.post(API_URL_DynamoDB, {Description: description, YoutubeURL: videoUrl, userId: props.username},{headers: {'x-api-key': 'bMACtU7bae8lMcEIzk5KY9XF5bQKFBtI25dPRrXB'}}).then(res => {
             setLearningId(res.data)
         })
     }
-
-    useEffect(() => {
-        if (videoId && description) {
-            setIsLoading(false)
-        }
-
-    }, [videoId, description]);
-
     return (
         <div>
             {isLoading ? (
@@ -63,7 +56,7 @@ function LearningMaterials(props) {
             ) :
                 (<div>
                     <Description DescriptionText={description}></Description>
-                    <YoutubeEmbed embedId={videoId}> </YoutubeEmbed>
+                    <Youtube videoId = {videoId} opts = {{width: '320',height: '180'}}/>
                 </div>)}
         </div>
     );
