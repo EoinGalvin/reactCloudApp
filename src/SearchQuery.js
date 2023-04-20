@@ -3,6 +3,7 @@ import LearningMaterials from "./LearningMaterial";
 import Axios from 'axios';
 import Youtube from 'react-youtube';
 import Description from "./Description";
+import ActionAreaCard from './ActionAreaCard';
 
 const API_URL_PREVIOUS_REQS = "https://52qgbt9ol7.execute-api.us-east-1.amazonaws.com/default/getPreviousLearningDataForUser";
 
@@ -43,8 +44,7 @@ function SearchQuery(username) {
             previousData.map((jsonObj) => {
                 return(
                     <div>
-                    <Description DescriptionText={jsonObj['Description']}></Description>
-                    <Youtube videoId = {jsonObj['YoutubeURL'].slice(32)} opts = {{width: '320',height: '180'}}/>
+                    <ActionAreaCard DescriptionText = {jsonObj['Description']} YoutubeURL={jsonObj['YoutubeURL'].slice(32)}> </ActionAreaCard>
                     </div>
                 )
             })

@@ -3,6 +3,8 @@ import Description from "./Description";
 import { useState, useEffect } from "react";
 import Axios from 'axios';
 
+import ActionAreaCard from './ActionAreaCard';
+
 const API_URL_YOUTUBE = "https://52qgbt9ol7.execute-api.us-east-1.amazonaws.com/default/getYoutubeResponse";
 const API_URL_GPT3 = "https://52qgbt9ol7.execute-api.us-east-1.amazonaws.com/default/getGPTdata";
 const API_URL_DynamoDB = "https://52qgbt9ol7.execute-api.us-east-1.amazonaws.com/default/addLearningsToDynamo";
@@ -55,8 +57,7 @@ function LearningMaterials(props) {
                 <span>Fetching Results for {props.username}</span>
             ) :
                 (<div>
-                    <Description DescriptionText={description}></Description>
-                    <Youtube videoId = {videoId} opts = {{width: '320',height: '180'}}/>
+                    <ActionAreaCard DescriptionText = {description} YoutubeURL={videoId}> </ActionAreaCard>
                 </div>)}
         </div>
     );
